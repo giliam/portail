@@ -125,6 +125,17 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'portail', 
+    'USER': 'root', 
+    'PASSWORD': 'robert42',
+    'HOST': 'localhost',
+    'PORT': '',
+  }
+}
+
 ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
@@ -171,7 +182,7 @@ INSTALLED_APPS = (
     'mediamines',
     'objettrouve',
     'freshbox',
-    'machines',
+    #'machines',
     #Avatar, pour les avatars de trombi
     'avatar',
     #TinyMCE pour les messages
