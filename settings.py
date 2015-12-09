@@ -8,8 +8,6 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
      ('Valentin Anjou', 'valentin.anjou@mines-paristech.fr'),
-     ('Maxime Ernoult', 'maxime.ernoult@mines-paristech.fr'),
-     ('Matthieu Denoux', 'matthieu.denoux@mines-paristech.fr'),
 )
 
 MANAGERS = ADMINS
@@ -158,6 +156,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'notification',
     'trombi',
+    'radiopsl',
     'association',
     'messages',
     'recherche',
@@ -184,7 +183,8 @@ INSTALLED_APPS = (
     'mediamines',
     'objettrouve',
     'freshbox',
-    #'machines',
+    'machines',
+    '1y1b',
     #Avatar, pour les avatars de trombi
     'avatar',
     #TinyMCE pour les messages

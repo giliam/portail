@@ -1,0 +1,36 @@
+
+
+{% block header %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}trombi.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}list.css" />
+	<title>Trombi</title>
+	
+{% endblock %}
+
+
+{% block content %}
+
+<ul class = "promo">
+        {% for mineur in mineur_list %}
+    {% for ad in adhesions %}
+    {% if ad.eleve_id == mineur.id %}
+    {% for as in assoces %}
+    {% if as.id == ad.association_id %}
+    {% if as.id == 1 %}
+    <li class="portrait">
+    <a href = "/people/{{mineur.user.username}}">
+    <img src="{{ STATIC_URL }}{{ mineur.user.username }}.jpg" />
+      <p>{{mineur.first_name}}<br/>{{mineur.last_name|upper}} </p>
+    </a>
+        <p>{{ad.role}}</p>
+    </li>&nbsp; &nbsp; &nbsp; &nbsp; 
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+      </ul>
+
+
+{% endblock %}
