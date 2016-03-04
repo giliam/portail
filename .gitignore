@@ -3,3 +3,8 @@
 1y1b/views.py
 1y1b/views.py
 1y1b/views.py
+
+bin/*
+django/*
+include/*
+lib/*
