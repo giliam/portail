@@ -115,4 +115,17 @@
 
 {% endif %}
 
+<script type="text/javascript">
+$(document).keydown(function(e) {
+    switch (e.which) {
+    case 37:
+    	window.location.replace("/people/{{mineur_avant.user.username}}");
+        break;
+    case 39:
+        window.location.replace("/people/{{mineur_apres.user.username}}");
+        break;
+    }
+})
+</script>
+
 {% endblock %}
