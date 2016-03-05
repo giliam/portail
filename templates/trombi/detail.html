@@ -7,6 +7,11 @@
 {% block content %}
 {% load avatar_tags %}
 
+<p id="fleches_profils">
+<a class="fleche_gauche" href="/people/{{mineur_avant.user.username}}"><img class="fleche_minimisee" src="{{ STATIC_URL }}left_arrow.png" /></a>
+<a class="fleche_droite" href="/people/{{mineur_apres.user.username}}"><img class="fleche_minimisee" src="{{ STATIC_URL }}right_arrow.png" /></a>
+</p>
+
 <div id="picture" class="pull-right">
 <!--<img src="{{ STATIC_URL }}{{ mineur.username }}.jpg" />-->
 <img src = {% avatar_url mineur %}>

@@ -53,12 +53,17 @@ def trombi_json(request):
 def detail(request, mineur_login):
     """Page de profil d'un élève"""
     mineur = get_object_or_404(UserProfile, user__username = mineur_login)
+
+    mineurs_promo = UserProfile.objects.filter(promo=mineur.promo)
+    mineur_apres = mineurs_promo.filter(user__username__gt=mineur_login)[0]
+    mineur_avant = mineurs_promo.filter(user__username__lt=mineur_login).order_by('-user__username')[0]
+
     assoces = Adhesion.objects.filter(eleve = mineur)
     if request.user.get_profile().en_premiere_annee():
         assoces = assoces.exclude(association__is_hidden_1A = True)
     liste_questions = Question.objects.all()
     liste_reponses = mineur.reponses.all()
-    return render_to_response('trombi/detail.html', {'mineur': mineur.user, 'assoces': assoces, 'liste_questions': liste_questions, 'liste_reponses': liste_reponses},context_instance=RequestContext(request))
+    return render_to_response('trombi/detail.html', {'mineur': mineur.user, 'assoces': assoces, 'liste_questions': liste_questions, 'liste_reponses': liste_reponses, 'mineur_apres': mineur_apres, 'mineur_avant': mineur_avant},context_instance=RequestContext(request))
 
 @login_required
 def detail_json(request, mineur_login):
