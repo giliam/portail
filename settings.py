@@ -125,17 +125,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'portail', 
-    'USER': 'root', 
-    'PASSWORD': 'robert42',
-    'HOST': 'localhost',
-    'PORT': '',
-  }
-}
-
 ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
