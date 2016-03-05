@@ -174,9 +174,9 @@ class AdhesionSuppressionForm(forms.Form):
 
     eleve = forms.ModelChoiceField(queryset=UserProfile.objects.all())
     
-    def __init__(self, association, *args, **kwargs):
+    def __init__(self, membres, *args, **kwargs):
         super(AdhesionSuppressionForm, self).__init__(*args, **kwargs)
-        self.fields['eleve'].queryset = association.membres.all()
+        self.fields['eleve'].queryset = membres
     
     
 class AfficheForm(ModelForm):

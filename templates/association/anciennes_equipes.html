@@ -27,24 +27,29 @@
 </div>
 {% endblock %}
 {% block content %}
-{% for adhesion in membres %}
-{% if request.user = adhesion.eleve.user %}
-<p class="actions"><a href="/associations/{{association.pseudo}}/equipe/ajouter_membre/"><img src="{{ STATIC_URL }}user_add.png" title="Ajouter un membre"></a>
-<a href="/associations/{{association.pseudo}}/equipe/mettre_en_retraite"><img src="{{ STATIC_URL }}user_add.png" title="Mettre un membre à la retraite"></a>
-<a href="/associations/{{association.pseudo}}/equipe/supprimer_membre/"><img src="{{ STATIC_URL }}user_delete.png" title="Supprimer un membre"></a>
-<a href="/associations/{{association.pseudo}}/equipe/changer_ordre/"><img src="{{ STATIC_URL }}user_ordre.png" title="Changer l'ordre"></a>
-<a href="/associations/{{association.pseudo}}/equipe/changer_role/"><img src="{{ STATIC_URL }}user_role.png" title="Changer le rôle"></a></p>
-{% endif %}
-{% endfor %}
 
 <div id="equipe">
-	{% for adhesion in membres %}
+{% for promotion, membres_promo in membres.items %}
+	<div class="equipe_promo">
+		<h1>Promotion {{promotion}}</h1>
+	{% for adhesion in membres_promo %}
+
 		<div class="portrait">
-		<img src="{{ STATIC_URL }}{{ adhesion.eleve.user.username }}.jpg" />
-		<p><a href = "{{ adhesion.eleve.get_absolute_url }}">{{ adhesion.eleve.first_name }} {{ adhesion.eleve.last_name|upper }}</a> {% if adhesion.role != "" %}<br />({{adhesion.role}}){% endif %}
-            {% if changer_role %}<br /><br /><a href="/associations/{{ association.pseudo }}/equipe/changer_role/{{ adhesion.id }}">Modifier le rôle</a><br />{% endif %}</p>
+			<img src="{{ STATIC_URL }}{{ adhesion.eleve.user.username }}.jpg" />
+			<p><a href = "{{ adhesion.eleve.get_absolute_url }}">{{ adhesion.eleve.first_name }} {{ adhesion.eleve.last_name|upper }}</a> {% if adhesion.role != "" %}<br />({{adhesion.role}}){% endif %}</p>
 		</div>
+			{% if est_membre %}
+			<div class="portrait changer">
+				<a href="/associations/{{association.pseudo}}/equipe/remettre_actif/{{adhesion.id}}"><img class="icone" src="{{ STATIC_URL }}user_add.png" title="Ajouter un membre"></a>
+			</div>
+			{% elif request.user == adhesion.eleve.user %}
+			<div class="portrait changer">
+				<a href="/associations/{{association.pseudo}}/equipe/supprimer_membre/{{adhesion.id}}"><img class="icone" src="{{ STATIC_URL }}user_delete.png" title="Supprimer un membre"></a>
+			</div>
+			{% endif %}
 	{% endfor %}
+	</div>
+{% endfor %}
 </div>
 <br>
 <!--<h2>Liste des messages</h2>-->
