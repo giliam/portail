@@ -24,8 +24,17 @@ def equipe(request, association_pseudo):
     association = get_object_or_404(Association,pseudo=association_pseudo)
     if association.est_cachee_a(request.user.get_profile()):
         return redirect(index)
-    membres = Adhesion.objects.filter(association__pseudo = association_pseudo).order_by('-ordre', 'eleve__last_name')
+    membres = Adhesion.objects.filter(en_poste=True,association__pseudo = association_pseudo).order_by('-ordre', 'eleve__last_name')
     return render_to_response('association/equipe.html', {'association' : association, 'membres': membres},context_instance=RequestContext(request))
+
+@login_required
+# La liste des membres d'une association
+def anciennes_equipes(request, association_pseudo):
+    association = get_object_or_404(Association,pseudo=association_pseudo)
+    if association.est_cachee_a(request.user.get_profile()):
+        return redirect(index)
+    membres = Adhesion.objects.filter(en_poste=False,association__pseudo = association_pseudo).order_by('-promo', '-ordre', 'eleve__last_name')
+    return render_to_response('association/anciennes_equipes.html', {'association' : association, 'membres': membres},context_instance=RequestContext(request))
 
 @login_required
 # Les messages postés par une association

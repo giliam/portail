@@ -63,7 +63,7 @@ class Adhesion(models.Model):
         super(Adhesion, self).delete()
 
     @staticmethod
-    def en_poste(eleve, association):
+    def est_en_poste(eleve, association):
         """
             Renvoie vrai si l'élève est membre de l'association
         """
@@ -161,7 +161,6 @@ class AdhesionAjoutForm(forms.Form):
 
     eleve = forms.ModelChoiceField(queryset=UserProfile.objects.all())
     role = forms.CharField(max_length=100, required=False)
-    promo = forms.IntegerField(required=True)
     
     def __init__(self, association, *args, **kwargs):
         super(AdhesionAjoutForm, self).__init__(*args, **kwargs)
@@ -170,7 +169,6 @@ class AdhesionAjoutForm(forms.Form):
         
 class AdhesionModificationForm(forms.Form):
     role = forms.CharField(max_length=100, required=False)
-    promo = forms.IntegerField(required=True)
 
 class AdhesionSuppressionForm(forms.Form):
 
