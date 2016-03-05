@@ -16,7 +16,13 @@ from bda.models import Instrument, Maitrise
 from django.views.generic import CreateView, UpdateView, DeleteView
 import subprocess
 import vobject
-import Image
+try:
+    import Image
+except ImportError:
+    try:
+        from PIL import Image
+    except ImportError:
+        raise ImportError("The Python Imaging Library was not found.")
 import json
 import os
 from settings import SECRET_KEY_UPDATE

@@ -11,7 +11,13 @@ from django.conf import settings
 from urllib import urlretrieve
 import subprocess
 import vobject
-import Image
+try:
+    import Image
+except ImportError:
+    try:
+        from PIL import Image
+    except ImportError:
+        raise ImportError("The Python Imaging Library was not found.")
 import json
 import os
 from machines.models import MachineProfile
