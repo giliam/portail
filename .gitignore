@@ -8,3 +8,7 @@ bin/*
 django/*
 include/*
 lib/*
+build/*
+local/*
+
+*.sql
