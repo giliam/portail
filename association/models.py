@@ -44,7 +44,9 @@ class Adhesion(models.Model):
     association = models.ForeignKey(Association)
     role = models.CharField(max_length=64, blank=True, help_text="Rôle dans l'association")
     ordre = models.IntegerField(default = 0, help_text="Ordre décroissant d'apparition de l'élève dans la page 'équipe' de l'assoce")
-    
+    promo = models.IntegerField(blank=True,null=True)
+    en_poste = models.BooleanField()
+
     class Meta:
         ordering = ['-ordre']
     
@@ -53,6 +55,7 @@ class Adhesion(models.Model):
 
     def save(self, *args, **kwargs):
         self.association.groupe_permissions.user_set.add(self.eleve.user) # On ajoute l'élève au groupe de permissions
+        self.promo = self.eleve.promo
         super(Adhesion, self).save(*args, **kwargs) # Sauvegarde
         
     def delete(self):
@@ -60,11 +63,11 @@ class Adhesion(models.Model):
         super(Adhesion, self).delete()
 
     @staticmethod
-    def existe(eleve, association):
+    def en_poste(eleve, association):
         """
             Renvoie vrai si l'élève est membre de l'association
         """
-        return Adhesion.objects.filter(association=association, eleve=eleve).exists()
+        return Adhesion.objects.filter(association=association, eleve=eleve, en_poste = True).exists()
 
 class Video(models.Model):
     """
@@ -158,6 +161,7 @@ class AdhesionAjoutForm(forms.Form):
 
     eleve = forms.ModelChoiceField(queryset=UserProfile.objects.all())
     role = forms.CharField(max_length=100, required=False)
+    promo = forms.IntegerField(required=True)
     
     def __init__(self, association, *args, **kwargs):
         super(AdhesionAjoutForm, self).__init__(*args, **kwargs)
@@ -166,6 +170,7 @@ class AdhesionAjoutForm(forms.Form):
         
 class AdhesionModificationForm(forms.Form):
     role = forms.CharField(max_length=100, required=False)
+    promo = forms.IntegerField(required=True)
 
 class AdhesionSuppressionForm(forms.Form):
 

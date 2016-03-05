@@ -15,6 +15,7 @@
 <li><a href="/associations/{{association.pseudo}}/messages/"><img src="{{ STATIC_URL}}mail.png">Messages</a></li>
 <li><a href="/associations/{{association.pseudo}}/evenements/"><img src="{{ STATIC_URL}}date.png">Évenements</a></li>
 <li class="active"><a href="/associations/{{association.pseudo}}/equipe/"><img src="{{ STATIC_URL}}user.png">Équipe</a></li>
+<li class="active"><a href="/associations/{{association.pseudo}}/anciennes_equipes/"><img src="{{ STATIC_URL}}user.png">Anciennes Équipes</a></li>
 <li><a href="/associations/{{association.pseudo}}/medias/"><img src="{{ STATIC_URL}}clapperboard.png">Médias</a></li>
 {% if association.page_set.all %}
 {% for page in association.page_set.all %}
@@ -29,6 +30,7 @@
 {% for adhesion in membres %}
 {% if request.user = adhesion.eleve.user %}
 <p class="actions"><a href="/associations/{{association.pseudo}}/equipe/ajouter_membre/"><img src="{{ STATIC_URL }}user_add.png" title="Ajouter un membre"></a>
+<a href="/associations/{{association.pseudo}}/equipe/mettre_en_retraite"><img src="{{ STATIC_URL }}user_add.png" title="Mettre un membre à la retraite"></a>
 <a href="/associations/{{association.pseudo}}/equipe/supprimer_membre/"><img src="{{ STATIC_URL }}user_delete.png" title="Supprimer un membre"></a>
 <a href="/associations/{{association.pseudo}}/equipe/changer_ordre/"><img src="{{ STATIC_URL }}user_ordre.png" title="Changer l'ordre"></a>
 <a href="/associations/{{association.pseudo}}/equipe/changer_role/"><img src="{{ STATIC_URL }}user_role.png" title="Changer le rôle"></a></p>
